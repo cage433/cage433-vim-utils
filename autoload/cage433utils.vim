@@ -8,8 +8,12 @@ function! cage433utils#find(list, predicate)
 endfunction
 
 function! cage433utils#list_contains(list, term)
-  let matching = cage433utils#find(a:list, "_ == ".a:term)
-  return ! empty(matching)
+  for l in a:list
+    if l == a:term
+      return 1
+    endif
+  endfor
+  return 0
 endfunction
 
 function! cage433utils#index_of(list, predicate, ...)
@@ -47,3 +51,27 @@ function! cage433utils#sum(list)
   return sum
 endfunction
 
+function! cage433utils#left_justify(text, width)
+  let space = repeat(" ", a:width - strlen(a:text))
+  return a:text.space
+endfunction
+
+function! cage433utils#right_justify(text, width)
+  let space = repeat(" ", a:width - strlen(a:text))
+  return space.a:text
+endfunction
+
+function! cage433utils#list_to_set(list)
+  let set = {}
+  for l in a:list
+    let set[l] = 1
+  endfor
+  return set
+endfunction
+
+function! cage433utils#get_or_update(dict, key, default)
+  if ! has_key(a:dict, a:key)
+    let a:dict[a:key] = a:default
+  endif
+  return a:dict[a:key]
+endfunction
