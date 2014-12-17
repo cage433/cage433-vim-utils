@@ -7,6 +7,10 @@ function! cage433utils#find(list, predicate)
   return []
 endfunction
 
+function! cage433utils#exists(list, predicate)
+  return !empty(cage433utils#find(a:list, a:predicate))
+endfunction
+
 function! cage433utils#list_contains(list, term)
   for l in a:list
     if l == a:term
